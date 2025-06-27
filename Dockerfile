@@ -1,4 +1,4 @@
-FROM centos:7
+FROM public.ecr.aws/nginx/nginx:1.29.0-alpine3.22
 LABEL maintainer "maria clara"
 RUN yum -y install httpd
 RUN yum -y install php
