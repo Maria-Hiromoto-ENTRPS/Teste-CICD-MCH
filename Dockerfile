@@ -1,7 +1,7 @@
-FROM public.ecr.aws/nginx/nginx:1.29.0-alpine3.22
+FROM rockylinux:9
 LABEL maintainer "maria clara"
-RUN yum -y install httpd
-RUN yum -y install php
+RUN dnf -y install httpd
+RUN dnf -y install php
 CMD /usr/sbin/httpd -D FOREGROUND
 WORKDIR /var/www/html
 COPY index.html /var/www/html
