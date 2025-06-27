@@ -1,4 +1,4 @@
-FROM centos:stream
+FROM centos:7
 LABEL maintainer "maria clara"
 RUN yum -y install httpd
 RUN yum -y install php
