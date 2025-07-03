@@ -1,3 +1,3 @@
 FROM public.ecr.aws/nginx/nginx:stable-perl
-COPY index.html /Teste-CICD-MCH/app/index.html
+COPY index.html /usr/share/nginx/html/index.html
 EXPOSE 80
