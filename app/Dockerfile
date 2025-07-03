@@ -1,29 +1,3 @@
-version: 0.2
-phases:
-  pre_build:
-    commands:
-      # ECR MAIN URI
-      - ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-      - ECR_IMAGE_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPO_NAME}:${CODEBUILD_RESOLVED_SOURCE_VERSION}"
-
-      # ECR PUBLIC GALLERY LOGIN
-      - aws ecr-public get-login-password --region us-east-1  | docker login -u AWS --password-stdin public.ecr.aws
-
-      # ECR LOGIN 
-      - aws ecr get-login-password --region ${AWS_DEFAULT_REGION}  | docker login -u AWS --password-stdin ${ECR_REGISTRY}
-
-      # Listing di
-      - ls -la
-  build:
-    commands:
-      - docker build -t builded-image -f Dockerfile  .
-  post_build:
-    commands:
-      - docker tag builded-image ${ECR_IMAGE_URI}
-      - docker push ${ECR_IMAGE_URI}
-
-      # Create New Task Revision
-      - printf '[{"name":"%s", "imageUri":"%s"}]' ${CONTAINER_NAME} ${ECR_IMAGE_URI} > taskdefinition.json
-artifacts:
-  files:
-    - taskdefinition.json
+FROM public.ecr.aws/nginx/nginx:stable-perl
+COPY index.html /Teste-CICD-MCH/app/index.html
+EXPOSE 80
