@@ -16,7 +16,7 @@ phases:
       - ls -la
   build:
     commands:
-      - docker build -t builded-image ./app
+          - docker build -t builded-image -f app/Dockerfile app
   post_build:
     commands:
       - docker tag builded-image ${ECR_IMAGE_URI}
